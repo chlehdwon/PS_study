@@ -24,7 +24,7 @@ class Solution:
                 return list((i, j))
         return "There is No Solution"
 
-    def twoSum_b(self, nums, target):
+    def twoSum_f(self, nums, target):
         """
         :type nums: List[int]
         :type target: int
@@ -44,4 +44,4 @@ class Solution:
 
 a = Solution()
 print(a.twoSum([1, 2, 2, 4, 10, 5], 7))
-print(a.twoSum_b([1, 2, 2, 4, 10, 5], 7))
+print(a.twoSum_f([1, 2, 2, 4, 10, 5], 7))
