@@ -1,4 +1,4 @@
-# Given a string s, find the length of the longest substring 
+# Given a string s, find the length of the longest substring
 # without repeating characters.
 
 
@@ -15,7 +15,7 @@ class Solution:
                     return length
                 if length > longest_len:
                     longest_len = length
-                index = index + point + 1 
+                index = index + point + 1
                 subs = s[index:i+1]
             else:
                 subs += str
@@ -43,5 +43,3 @@ class Solution:
 a = Solution()
 print(a.lengthOfLongestSubstring("pwwkewabcde"))
 print(a.lengthOfLongestSubstring_f("pwwkewabcde"))
-
-    
