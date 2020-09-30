@@ -1,6 +1,8 @@
 # Given n pairs of parentheses, write a function
 # to generate all combinations of well-formed parentheses.
 
+import time
+
 
 class Solution:
     def generateParenthesis(self, n):
@@ -50,6 +52,10 @@ class Solution_2:
 
 
 a = Solution()
-# b = Solution_2()
-print(sorted(a.generateParenthesis(4)))
-# print(sorted(b.generateParenthesis(6)))
+b = Solution_2()
+start_time = time.time()
+a.generateParenthesis(13)
+print(f"*****{(time.time() - start_time):.10f}*****")
+start_time = time.time()
+b.generateParenthesis(13)
+print(f"-----{(time.time() - start_time):.10f}-----")
