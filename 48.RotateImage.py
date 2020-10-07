@@ -31,7 +31,7 @@ class Solution2:
             right = n-1
             while left < right:
                 matrix[j][left], matrix[j][right] = matrix[j][right],
-                matrix[j][left]
+matrix[j][left]
                 left += 1
                 right -= 1
 
