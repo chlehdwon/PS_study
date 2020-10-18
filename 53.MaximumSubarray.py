@@ -9,8 +9,8 @@
 class Solution:
     def maxSubArray(self, nums):
         n = len(nums)
-        ##############################################################
-        # Kadane's Algorithm   O(n)
+        #############################################################
+        Kadane's Algorithm   O(n)
 
         current_sum = float('-inf')
         max_sum = 0
@@ -19,9 +19,8 @@ class Solution:
             max_sum = max(current_sum, max_sum)
         return max_sum
 
-        ###############################################################
+        ##############################################################
         # divide and Conquer O(nlogn)
-
         if n == 1:
             return nums[0]
 
@@ -29,7 +28,6 @@ class Solution:
 
         left_sum = self.maxSubArray(nums[:m])
         right_sum = self.maxSubArray(nums[m:])
-
         max_left_sum = float("-inf")
         max_right_sum = float("-inf")
 
@@ -47,4 +45,4 @@ class Solution:
 
 
 a = Solution()
-print([-2, 1, -3, 4, -1, 2, 1, -5, 4], 6)
+print(a.maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
