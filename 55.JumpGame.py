@@ -1,14 +1,14 @@
 class Solution:
     def canJump(self, nums) -> bool:
-        if nums[0] >= len(nums) - 1:
-            return True
-        if nums[0] == 0:
+        length = len(nums)
+        if nums[0] == 0 and length >= 2:
             return False
-        for i in range(1, nums[0]+1):
-            if self.canJump(nums[i:]):
-                return True
-        return False
+        last = length-1
+        for i in range(length-1)[::-1]:
+            if i+nums[i] >= last:
+                last = i
+        return last == 0
 
 
 a = Solution()
-print(a.canJump([3,0,8,2,0,0,1]))
+print(a.canJump([2,0,0]))
