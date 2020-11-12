@@ -25,17 +25,14 @@ class Solution:
             for _ in range(length):
                 node = queue.pop(0)
                 ans.append(node.val)
-                if flag == 1:
-                    if node.left:
-                        queue.append(node.left)
-                    if node.right:
-                        queue.append(node.right)
-                if flag == -1:
-                    if node.right:
-                        queue.append(node.right)
-                    if node.left:
-                        queue.append(node.left)
-            return_list.append(ans)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            if flag == 1:
+                return_list.append(ans)
+            else:
+                return_list.append(reversed(ans))
             flag *= -1
         return return_list
 
