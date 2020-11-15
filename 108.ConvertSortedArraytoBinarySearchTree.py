@@ -16,6 +16,9 @@ class TreeNode:
 
 
 class Solution:
+    # My answer. I used recursion to solve this problem.
+    # To make height-balanced bst, I used half-point of index
+    # for the root.
     def sortedArrayToBST(self, nums) -> TreeNode:
         if not nums:
             return None
@@ -26,6 +29,10 @@ class Solution:
 
         return root
 
+    # More updated version
+    # Because time is wasted when we slice the 'nums' list
+    # So, by using the traverse function which have two parameters
+    # l and r. These parameters allow us to avoid the slicing.
     def sortedArrayToBST_2(self, nums):
         def traverse(l, r):
             if l > r:

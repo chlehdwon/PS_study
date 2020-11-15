@@ -12,6 +12,12 @@ class TreeNode:
 
 
 class Solution:
+    # Leetcode's answer. Basically, we make node by preorder.
+    # After find the index of the node in inorder list, we can
+    # know that left side of inorder list will be placed in
+    # left side of the tree, and right side of list will be placed in
+    # right side of the tree. So by using recusion, we can built the
+    # tree easily.
     def buildTree(self, preorder, inorder):
         if inorder:
             index = inorder.index(preorder.pop(0))
@@ -22,6 +28,8 @@ class Solution:
 
 
 class Solution2:
+    # Leetcode's answer. This code use helper method to avoid
+    # list slicing.
     def buildTree(self, preorder, inorder):
         val_index_dict = {num: idx for idx, num in enumerate(inorder)}
         self.root_index = 0
