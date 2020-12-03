@@ -12,14 +12,34 @@ class Solution:
     def maxProfit(self, prices):
         buy, maxprofit = 0, 0
         for i in range(0, len(prices)):
-            if prices[i] < buy:
-                buy = i
-            else:
-                continue
             temp = max(prices[buy:])-prices[buy]
             if temp > maxprofit:
                 maxprofit = temp
+            if prices[i] < prices[buy]:
+                buy = i
+            else:
+                continue
         return maxprofit
+
+
+class Solution2:
+    def maxProfit(self, prices):
+
+        if not prices:
+            return 0
+
+        profit = 0
+
+        buy_stock = prices[0]
+
+        for i in range(len(prices)):
+
+            if buy_stock > prices[i]:
+                buy_stock = prices[i]
+
+            profit = max((prices[i] - buy_stock, profit))
+
+        return profit
 
 
 a = Solution()
