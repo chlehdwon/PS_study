@@ -37,6 +37,8 @@ class Solution2:
 class Solution3:
     def maxProfit(self, prices) -> int:
         # It is impossible to sell stock on first day, set -infinity as initial value for cur_hold
+        # cur_hold : my money when we buy stock 
+        # cur_not_hold : my money when we sell stock
         cur_hold, cur_not_hold = -float('inf'), 0
         for stock_price in prices:
             prev_hold, prev_not_hold = cur_hold, cur_not_hold
