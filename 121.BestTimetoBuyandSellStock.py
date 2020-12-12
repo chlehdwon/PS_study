@@ -8,7 +8,7 @@
 # Note that you cannot sell a stock before you buy one.
 
 
-# Dynamic Programming Solution. 
+# Dynamic Programming Solution.
 # For prices list for index 0 to index i,
 # We put -(the cost of stock when we buy) at dp[i][0]
 # And the maximum profit at dp[i][1]
@@ -53,6 +53,6 @@ class Solution3:
         return profit
 
 
-    
 a = Solution()
 print(a.maxProfit([7,1,5,3,6,4]))
+
