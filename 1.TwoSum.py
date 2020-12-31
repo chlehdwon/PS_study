@@ -22,7 +22,7 @@ class Solution:
                 j = nums[i+1:].index(target-num)+i+1
                 print(f"-----{(time.time() - start_time):.10f}-----")
                 return list((i, j))
-        return "There is No Solution"
+        return []
 
     def twoSum_f(self, nums, target):
         """
