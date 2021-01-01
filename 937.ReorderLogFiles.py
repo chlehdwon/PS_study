@@ -21,7 +21,15 @@
 class Solution:
     def reorderLogFiles(self, logs: List[str]) -> List[str]:
         letter_logs, digits_logs = [], []
+        if not logs:
+            return []
         for log in logs:
             # check whether log is letter-logs or digits-log
             if log.split(' ')[1].isdigit():
-                
+                digits_logs.append(log)
+            else:
+                letter_logs.append(log)
+        # Sort the letter_logs in order.
+        # We used tuple to deal with some cases whose logs are same except identifier.
+        letter_logs.sort(key=lambda x:(x.split(' ')[1:], x.split(' ')[0]))
+        return letter_logs + digits_logs
