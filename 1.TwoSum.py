@@ -42,6 +42,13 @@ class Solution:
         return []
 
 
+class Solution2:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        for i, num in enumerate(nums):
+            if target-num in nums[i+1:]:
+                return [i, i+1+nums[i+1:].index(target-num)]
+
+
 a = Solution()
 print(a.twoSum([1, 2, 2, 4, 10, 5], 7))
 print(a.twoSum_f([1, 2, 2, 4, 10, 5], 7))

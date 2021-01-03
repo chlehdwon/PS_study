@@ -28,6 +28,15 @@ class Solution2:
         return list(group_dict.values())
 
 
+class Solution3:
+    # My answer. EZ
+    def groupAnagrams(self, strs):
+        ana_dict = defaultdict(list)
+        for word in strs:
+            ana_dict[''.join(sorted(word))].append(word)
+        return ana_dict.values()
+
+
 a = Solution2()
 print(a.groupAnagrams(["eat","tea","tan","ate","nat","bat"]))
 print(a.groupAnagrams([""]))
