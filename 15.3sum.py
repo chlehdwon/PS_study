@@ -45,5 +45,32 @@ class Solution:
         return [list(s) for s in ans]
 
 
+class Solution2:
+    # The algorithm book's solution. It used two-pinters method.
+    # Time complexity is O(n^2)
+    def threeSum(self, nums):
+        if not nums or len(nums) < 3:
+            return []
+        answer = []
+        nums.sort()
+        left, right = 0, len(nums)-1
+        while left < right and (nums[left] * nums[right] >= 0):
+            print(left, right)
+            target = -nums[left]-nums[right]
+            if target in nums[left:right+1]:
+                answer.append([nums[left], target, nums[right]])
+            mid = (left + right) // 2
+            if target < nums[mid]:
+                left_num = nums[left]
+                while nums[left] == left_num:
+                    left += 1
+            else:
+                right += 1
+                right_num = nums[right]
+                while nums[right] == right_num:
+                    right -= 1
+        return answer
+
+
 a = Solution()
 print(a.threeSum_3([-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4]))
