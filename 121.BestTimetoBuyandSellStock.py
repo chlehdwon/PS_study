@@ -1,3 +1,5 @@
+import sys
+
 # Say you have an array for which the ith element is the price of
 # a given stock on day i.
 
@@ -50,6 +52,15 @@ class Solution3:
             if buy_stock > prices[i]:
                 buy_stock = prices[i]
             profit = max((prices[i] - buy_stock, profit))
+        return profit
+
+
+class Solution4:
+    def maxProfit(self, prices):
+        min_price, profit = float('inf'), 0
+        for price in prices:
+            min_price = min(min_price, price)
+            profit = max(profit, price-min_price)
         return profit
 
 
