@@ -20,14 +20,15 @@ class Solution:
             prev = node
             node = temp
         return prev
-            
+
 
 class Solution2:
     # recursion solution
-    def reverse(node: ListNode, prev: ListNode = None):
-        if not node:
-            return prev
-        next, node.next = node.next, prev
-        return reverse(next, node)
-    
-    return reverse(head)
+    def reverseList(self, head: ListNode) -> ListNode:
+        def reverse(node: ListNode, prev: ListNode = None):
+            if not node:
+                return prev
+            next, node.next = node.next, prev
+            return reverse(next, node)
+        return reverse(head)
+

@@ -16,33 +16,51 @@ class ListNode:
 
 
 class Solution:
-    def addTwoNumbers(self, l1, l2):
-        l3 = ListNode()
-        n_l1, n_l2, n_l3, carry = l1, l2, l3, 0
-        while n_l1 is not None or n_l2 is not None:
-            if not n_l1:
-                v_l1, v_l2 = 0, n_l2.val
-            elif not n_l2:
-                v_l1, v_l2 = n_l1.val, 0
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        n_l3 = l3 = ListNode(0)
+        carry, sum = 0, 0
+        while l1 is not None or l2 is not None:
+            if l1 is None:
+                sum = (carry + l2.val) % 10
+                carry = (carry + l2.val) // 10
+            elif l2 is None:
+                sum = (carry + l1.val) % 10
+                carry = (carry + l1.val) // 10
             else:
-                v_l1, v_l2 = n_l1.val, n_l2.val
-            c_val = v_l1 + v_l2 + carry
-            if c_val >= 10:
-                n_l3.val = c_val - 10
-                carry = 1
-            else:
-                n_l3.val = c_val
-                carry = 0
-            if n_l1:
-                n_l1 = n_l1.next
-            if n_l2:
-                n_l2 = n_l2.next
-            if n_l1 or n_l2:
-                n_l3.next = ListNode()
+                sum = (carry + l1.val + l2.val) % 10
+                carry = (carry + l1.val + l2.val) // 10
+            n_l3.val = sum
+            if l1 is not None:
+                l1 = l1.next
+            if l2 is not None:
+                l2 = l2.next
+            if l1 or l2 or carry:
+                n_l3.next = ListNode(1)
                 n_l3 = n_l3.next
-        if carry:
-            n_l3.next = ListNode(1)
         return l3
+
+
+class Solution2:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        root = head = ListNode(0)
+
+        carry = 0
+        while l1 or l2 or carry:
+            sum = 0
+            # plus each node's value to sum
+            if l1:
+                sum += l1.val
+                l1 = l1.next
+            if l2:
+                sum += l2.val
+                l2 = l2.next
+
+            # calculate carry and remainder by uising divmod()
+            carry, val = divmod(sum + carry, 10)
+            head.next = ListNode(val)
+            head = head.next
+
+        return root.next
 
 
 a = Solution()
