@@ -5,6 +5,7 @@ without repeating characters.
 
 
 class Solution:
+    # the book's solution.
     def lengthOfLongestSubstring(self, s: str) -> int:
         used = {}
         max_length = start = 0
@@ -22,6 +23,7 @@ class Solution:
 
 
 class Solution2:
+    # my first solution. It is very impressive that runtime is very short.
     def lengthOfLongestSubstring(self, s):
         subs = ""
         max_len = len(list(set(s)))
@@ -44,6 +46,7 @@ class Solution2:
 
 
 class Solution3:
+    # Leetcode's answer. Similar to solution 1.
     def lengthOfLongestSubstring(self, s: str) -> int:
         my_dict = {}
         max_len = 0
