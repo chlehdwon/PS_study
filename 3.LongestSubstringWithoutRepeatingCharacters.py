@@ -1,8 +1,27 @@
-# Given a string s, find the length of the longest substring
-# without repeating characters.
+"""
+Given a string s, find the length of the longest substring
+without repeating characters.
+"""
 
 
 class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        used = {}
+        max_length = start = 0
+        for index, char in enumerate(s):
+            # if it appear before, update the index of 'start'
+            if char in used and start <= used[char]:
+                start = used[char] + 1
+            else:  # updete the length of longest substring
+                max_length = max(max_length, index - start + 1)
+
+            # insert index of current character
+            used[char] = index
+
+        return max_length
+
+
+class Solution2:
     def lengthOfLongestSubstring(self, s):
         subs = ""
         max_len = len(list(set(s)))
@@ -23,7 +42,9 @@ class Solution:
                     longest_len = len(subs)
         return longest_len
 
-    def lengthOfLongestSubstring_f(self, s: str) -> int:
+
+class Solution3:
+    def lengthOfLongestSubstring(self, s: str) -> int:
         my_dict = {}
         max_len = 0
         max_max_len = len(list(set(s)))
