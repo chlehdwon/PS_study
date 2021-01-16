@@ -42,6 +42,29 @@ class Solution2:
                 visited.remove(i)
 
 
+class Solution3:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        results = []
+        prev_elements = []
+
+        def dfs(elements):
+            # add result when the node is leaf node
+            if len(elements) == 0:
+                results.append(prev_elements[:])
+
+            # call permutation generator recursively
+            for e in elements:
+                next_elements = elements[:]
+                next_elements.remove(e)
+
+                prev_elements.append(e)
+                dfs(next_elements)
+                prev_elements.pop()
+
+        dfs(nums)
+        return results
+
+
 a = Solution()
 print(a.permute([7]))
 print(a.permute([1, 2, 3, 4]))

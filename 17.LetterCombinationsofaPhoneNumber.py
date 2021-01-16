@@ -37,19 +37,21 @@ class Solution:
                     break
         return com
 
-        def letterCombinations_2(self, digits):
-            if not digits:
-                return []
-            dic = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
-                   '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
-            ans = [[]]
-            letters = tuple(tuple(dic[x]) for x in digits)
-            for letter in letters:
-                ans = [x + [y] for x in ans for y in letter]
-            return [''.join(ele) for ele in ans]
+
+class Solution2:
+    def letterCombinations(self, digits):
+        if not digits:
+            return []
+        dic = {'2': 'abc', '3': 'def', '4': 'ghi', '5': 'jkl',
+               '6': 'mno', '7': 'pqrs', '8': 'tuv', '9': 'wxyz'}
+        ans = [[]]
+        letters = tuple(tuple(dic[x]) for x in digits)
+        for letter in letters:
+            ans = [x + [y] for x in ans for y in letter]
+        return [''.join(ele) for ele in ans]
 
 
-class Solution_2:
+class Solution3:
     def __init__(self):
         self.nums = {"2": ['a', 'b', 'c'], "3": ['d', 'e', 'f'],
                      "4": ['g', 'h', 'i'],
@@ -67,6 +69,30 @@ class Solution_2:
                 or [letter])
         return res
 
+
+class Solution4:
+    def letterCombinations(self, digits: str) -> List[str]:
+        def dfs(index, path):
+            # backtracking when we reach to the end
+            if len(path) == len(digits):
+                result.append(path)
+                return
+
+            for i in range(index, len(digits)):
+                # repeat for letters which connected with the number
+                for j in dic[digits[i]]:
+                    dfs(i + 1, path + j)
+
+        # except case
+        if not digits:
+            return []
+
+        dic = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl",
+               "6": "mno", "7": "pqrs", "8": "tuv", "9": "wxyz"}
+        result = []
+        dfs(0, "")
+
+        return result
 
 a = Solution()
 print(a.letterCombinations("23"))
