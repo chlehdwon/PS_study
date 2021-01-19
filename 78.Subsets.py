@@ -1,4 +1,37 @@
+"""
+Given an integer array nums of unique elements, return all possible
+subsets (the power set).
+
+The solution set must not contain duplicate subsets. Return the
+solution in any order.
+"""
+
+
 class Solution:
+    def subsets(self, nums):
+        def dfs(index, ele):
+            ans.append(ele[:])
+            for i in range(index+1, len(nums)):
+                ele.append(nums[i])
+                dfs(i, ele)
+                ele.pop()
+        ans = []
+        dfs(-1, [])
+        return ans
+
+
+class Solution2:
+    def subsets(self, nums):
+        def dfs(index, path):
+            result.append(path)
+            for i in range(index, len(nums)):
+                dfs(i+1, path+[nums[i]])
+        result = []
+        dfs(0, [])
+        return result
+
+
+class Solution3:
     def subsets(self, nums):
         if not nums:
             return []
@@ -17,7 +50,7 @@ class Solution:
         return result
 
 
-class Solution2:
+class Solution4:
     """
     level 0: []
     level 1: [11]                    [22]       [33]
@@ -31,11 +64,9 @@ class Solution2:
         return res
 
     def backtracking(self, res, start, subset, nums):
-        print(res, "/", start, "/", subset)
         res.append(subset[:])
         for i in range(start, len(nums)):
             subset.append(nums[i])
-            print("        ", subset)
             self.backtracking(res, i+1, subset, nums)
             subset.pop()
 
