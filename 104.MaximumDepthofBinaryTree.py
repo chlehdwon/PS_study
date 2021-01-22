@@ -1,9 +1,12 @@
-# Given a binary tree, find its maximum depth.
+"""
+Given the root of a binary tree, return its maximum depth.
 
-# The maximum depth is the number of nodes along the longest path
-# from the root node down to the farthest leaf node.
+A binary tree's maximum depth is the number of nodes along the longest
+path from the root node down to the farthest leaf node.
+"""
 
-# Definition for a binary tree node.
+
+import collections
 
 
 class TreeNode:
@@ -14,6 +17,7 @@ class TreeNode:
 
 
 class Solution:
+    # recursion answer
     def maxDepth(self, root: TreeNode) -> int:
         if not root:
             return 0
@@ -21,16 +25,21 @@ class Solution:
 
 
 class Solution2:
+    # bfs answer
     def maxDepth(self, root: TreeNode) -> int:
-        if not root:
+        if root is None:
             return 0
-        stack, depth = [(root, 1)], 0
-        while stack:
-            cur, cur_depth = stack.pop()
-            if cur:
-                depth = max(depth, cur_depth)
-                if cur.left:
-                    stack.append((cur.left, cur_depth+1))
-                if cur.right:
-                    stack.append((cur.right, cur_depth+1))
+        # we use deque for queue data type
+        queue = collections.deque([root])
+        depth = 0
+        while queue:
+            depth += 1
+            # the number of iteration is depth of the tree
+            for _ in range(len(queue)):
+                node = queue.popleft()
+                # if the node has childs, push to queue
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
         return depth
