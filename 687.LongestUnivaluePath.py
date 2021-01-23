@@ -17,5 +17,21 @@ class TreeNode:
 
 
 class Solution:
+    longest: int = 0
+
     def longestUnivaluePath(self, root: TreeNode) -> int:
-        
+        def dfs(node) -> int:
+            path_l, path_r = 0, 0
+            if node.left:
+                left, left_val = dfs(node.left)
+                if left_val == node.val:
+                    path_l = left
+            if node.right:
+                right, right_val = dfs(node.right)
+                if right_val == node.val:
+                    path_r = right
+            self.longest = max(self.longest, path_l + path_r)
+            return (max(path_l, path_r)+1, node.val)
+        dfs(root)
+        return self.longest
+
