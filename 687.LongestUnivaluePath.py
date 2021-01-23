@@ -17,21 +17,50 @@ class TreeNode:
 
 
 class Solution:
+    # My answer. Faster than Solution 2.
     longest: int = 0
 
     def longestUnivaluePath(self, root: TreeNode) -> int:
         def dfs(node) -> int:
             path_l, path_r = 0, 0
             if node.left:
-                left, left_val = dfs(node.left)
-                if left_val == node.val:
+                left = dfs(node.left)
+                if node.left.val == node.val:
                     path_l = left
             if node.right:
-                right, right_val = dfs(node.right)
-                if right_val == node.val:
+                right = dfs(node.right)
+                if node.right.val == node.val:
                     path_r = right
             self.longest = max(self.longest, path_l + path_r)
-            return (max(path_l, path_r)+1, node.val)
+            return max(path_l, path_r)+1
+        if root is None:
+            return 0
+        dfs(root)
+        return self.longest
+
+
+class Solution2:
+    # book answer. We can make 2 variables less than solution 1.
+    longest: int = 0
+
+    def longestUnivaluePath(self, root: TreeNode) -> int:
+        def dfs(node) -> int:
+            if node is None:
+                return 0
+            left = dfs(node.left)
+            right = dfs(node.right)
+                # set path_l only when the value is same
+            if node.left and node.left.val == node.val:
+                left += 1
+            else:
+                left = 0
+                # set path_r only when the value is same
+            if node.right and node.right.val == node.val:
+                right += 1
+            else:
+                right = 0
+            self.longest = max(self.longest, left+right)
+            return max(left, right)
         dfs(root)
         return self.longest
 
