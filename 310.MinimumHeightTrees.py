@@ -36,5 +36,6 @@ class Solution:
         for a, b in edges:
             graph[a] = b
         for i in list(graph):
-            min_height
+            dict_height[dfs(i)] = i
+        return dict_height[min(dict_height)]
         
