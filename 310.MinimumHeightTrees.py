@@ -24,18 +24,57 @@ import collections
 
 class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n <= 1:
+            return [0]
+
+        # construct bi-directional graph
+        graph = collections.defaultdict(list)
+        for i, j in edges:
+            graph[i].append(j)
+            graph[j].append(i)
+
+        # add first leaf nodes
+        leaves = []
+        for i in range(n + 1):
+            if len(graph[i]) == 1:
+                leaves.append(i)
+
+        # delete iteratively until only root nodes remain.
+        while n > 2:
+            n -= len(leaves)
+            new_leaves = []
+            for leaf in leaves:
+                neighbor = graph[leaf].pop()
+                graph[neighbor].remove(leaf)
+
+                if len(graph[neighbor]) == 1:
+                    new_leaves.append(neighbor)
+
+            leaves = new_leaves
+
+        return leaves
+
+
+class Solution2:
+    # My answer. It is very slow... so time limit exceeded occured
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
         def dfs(node):
+            seen.add(node)
             if graph[node]:
                 height = 1
                 for u in graph[node]:
-                    height = max(height, dfs(u))
+                    if u not in seen:
+                        height = max(height, dfs(u))
                 return height
             return 0
-        
-        graph, dict_height = collections.defaultdict(list), collections.defaultdict(list)
+
+        graph, dict_height = collections.defaultdict(list), \
+            collections.defaultdict(list)
+        seen = set()
         for a, b in edges:
-            graph[a] = b
+            graph[a].append(b)
+            graph[b].append(a)
         for i in list(graph):
-            dict_height[dfs(i)] = i
+            seen = set()
+            dict_height[dfs(i)].append(i)
         return dict_height[min(dict_height)]
-        
