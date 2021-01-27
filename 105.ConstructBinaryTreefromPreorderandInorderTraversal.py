@@ -4,6 +4,19 @@
 # Definition for a binary tree node.
 
 
+"""
+Given preorder and inorder traversal of a tree, construct the binary
+tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+"""
+
+
+import collections
+
+
+# Definition for a binary tree node.
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -12,6 +25,25 @@ class TreeNode:
 
 
 class Solution:
+    # My answer! I used deque for preorder because pop(0) is O(n).
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
+        def dfs(order):
+            if not order:
+                return None
+            node = TreeNode(pre.popleft())
+            index = order.index(node.val)
+            node.left = dfs(order[:index])
+            node.right = dfs(order[index+1:])
+
+            return node
+
+        pre = collections.deque(preorder[:])
+        root = dfs(inorder)
+        
+        return root
+
+
+class Solution2:
     # Leetcode's answer. Basically, we make node by preorder.
     # After find the index of the node in inorder list, we can
     # know that left side of inorder list will be placed in
@@ -27,7 +59,7 @@ class Solution:
             return root
 
 
-class Solution2:
+class Solution3:
     # Leetcode's answer. This code use helper method to avoid
     # list slicing.
     def buildTree(self, preorder, inorder):

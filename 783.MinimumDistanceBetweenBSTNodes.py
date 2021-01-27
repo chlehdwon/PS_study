@@ -38,7 +38,7 @@ class Solution2:
     prev = -sys.maxsize
     result = sys.maxsize
 
-    # 재귀 구조 중위 순회 비교 결과
+    # recursive inorder traversal comparison result 
     def minDiffInBST(self, root: TreeNode) -> int:
         if root.left:
             self.minDiffInBST(root.left)
@@ -60,7 +60,7 @@ class Solution3:
         stack = []
         node = root
 
-        # 반복 구조 중위 순회 비교 결과
+        # iteration inorder traversal comparison result
         while stack or node:
             while node:
                 stack.append(node)
