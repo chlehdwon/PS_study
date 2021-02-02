@@ -1,12 +1,33 @@
-# Given an array nums with n objects colored red, white, or blue, sort
-# them in-place so that objects of the same color are adjacent, with the
-# colors in the order red, white, and blue.
+"""
+Given an array nums with n objects colored red, white, or blue, sort
+them in-place so that objects of the same color are adjacent, with the
+colors in the order red, white, and blue.
 
-# Here, we will use the integers 0, 1, and 2 to represent the color red,
-# white, and blue respectively.
+We will use the integers 0, 1, and 2 to represent the color red, white,
+and blue, respectively.
+"""
+
+
+from typing import List
 
 
 class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        red, white, blue = 0, 0, len(nums)
+
+        while white < blue:
+            if nums[white] < 1:
+                nums[red], nums[white] = nums[white], nums[red]
+                white += 1
+                red += 1
+            elif nums[white] > 1:
+                blue -= 1
+                nums[white], nums[blue] = nums[blue], nums[white]
+            else:
+                white += 1
+
+
+class Solution2:
     def sortColors(self, nums):
         """
         Do not return anything, modify nums in-place instead.
@@ -22,7 +43,7 @@ class Solution:
             nums[i], nums[minimum] = nums[minimum], nums[i]
 
 
-class Solution2:
+class Solution3:
     def sortColors(self, nums) -> None:
         """
         Second Solution : Count the number of 1, 2 and change array
@@ -42,7 +63,7 @@ class Solution2:
             nums[i] = 2
 
 
-class Solution3:
+class Solution4:
     def sortColors(self, nums):
         """
         Third Solution : The Dutch national flag problem
@@ -67,3 +88,4 @@ class Solution3:
 
 a = Solution()
 a.sortColors([2,0,2,1,1,0])
+

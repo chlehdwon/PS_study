@@ -1,8 +1,46 @@
-# You are given an integer array nums sorted in ascending order,
-# and an integer target.
+"""
+You are given an integer array nums sorted in ascending order
+(with distinct values), and an integer target.
+
+Suppose that nums is rotated at some pivot unknown to you beforehand
+(i.e., [0,1,2,4,5,6,7] might become [4,5,6,7,0,1,2]).
+
+If target is found in the array return its index, otherwise, return -1.
+"""
+
+
+from typing import List
 
 
 class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        # find minimum value and set it to pivot
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+
+        pivot = left
+
+        left, right = 0, len(nums) - 1
+
+        # binary search by using center as pivot
+        while left <= right:
+            mid = left + (right - left) // 2
+            mid_pivot = (mid + pivot) % len(nums)
+            if nums[mid_pivot] > target:
+                right = mid - 1
+            elif nums[mid_pivot] < target:
+                left = mid + 1
+            else:
+                return mid_pivot
+        return -1
+
+
+class Solution2:
     def search(self, nums, target: int) -> int:
         check = True
         if nums[0] > target:
@@ -20,7 +58,7 @@ class Solution:
         return -1
 
 
-class Solution2:
+class Solution3:
     def search(self, nums, target: int) -> int:
         start, end = 0, len(nums)-1
         while start <= end:
