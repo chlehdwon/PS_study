@@ -1,40 +1,52 @@
-# Say you have an array prices for which the ith element is the price
-# of a given stock on day i.
+"""
+Say you have an array prices for which the ith element is the price of
+a given stock on day i.
 
-# Design an algorithm to find the maximum profit. You may complete as
-# many transactions as you like (i.e., buy one and sell one share of 
-# the stock multiple times)
+Design an algorithm to find the maximum profit. You may complete as
+many transactions as you like (i.e., buy one and sell one share of the
+stock multiple times).
 
-# My answer
+Note: You may not engage in multiple transactions at the same time
+(i.e., you must sell the stock before you buy again).
+"""
+
+
 class Solution:
-    def maxProfit(self, prices):
-        maxprofit = 0
-        buy, sell = prices[0], prices[0]
-        for p in prices[1:]:
-            if p > sell:
-                sell = p
-            else:
-                maxprofit += sell - buy
-                buy, sell = p, p
-        maxprofit += sell - buy
-        return maxprofit
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        profit, buy = 0, False
+        for i in range(len(prices)-1):
+            if not buy and prices[i] < prices[i+1]:
+                profit -= prices[i]
+                buy = True
+            elif buy and prices[i] > prices[i+1]:
+                profit += prices[i]
+                buy = False
+        if buy:
+            profit += prices[-1]
+        return profit
 
 
-#More Faster Version. Basic Algorithm is same as my answer. 
 class Solution2:
-    def maxProfit(self, prices) -> int:
-        
-        profit_from_price_gain = 0
-        for idx in range( len(prices)-1 ):
-            
-            if prices[idx] < prices[idx+1]:
-                profit_from_price_gain += ( prices[idx+1] - prices[idx])
-                
-        return profit_from_price_gain
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+            return 0
+        profit = 0
+        for i in range(len(prices)-1):
+            if prices[i] < prices[i+1]:
+                profit += prices[i+1] - prices[i]
+
+        return profit
+
+
+class Solution3:
+    def maxProfit(self, prices: List[int]) -> int:
+        return sum(max(prices[i+1]-prices[i], 0) for i in range(len(prices) - 1))
 
 
 # Implementation by using DP
-class Solution3:
+class Solution4:
     def maxProfit(self, prices) -> int:
         # It is impossible to sell stock on first day, set -infinity as initial value for cur_hold
         # cur_hold : my money when we buy stock 

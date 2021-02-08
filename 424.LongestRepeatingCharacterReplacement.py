@@ -15,18 +15,15 @@ import collections
 
 class Solution:
     def characterReplacement(self, s: str, k: int) -> int:
-        a = collections.Counter()
-        left, right, count, life = 0, 0, 0, k
-        for right, c in enumerate(s):
-            a[c] += 1
-            if s[left] != c:
-                life -= 1
-            if life == 0:
-                while left < right and s[left] == c:
-                    a[c[left]] -= 1
-                    left += 1
-                if not count or a[c[left]] > count:
-                    count = a[c[left]]
-                life = k
+        left = right = 0
+        counts = collections.Counter()
+        for right in range(1, len(s) + 1):
+            counts[s[right - 1]] += 1
+            # search the number of the most common character
+            max_char_n = counts.most_common(1)[0][1]
 
-        return count + k
+            # move left pointer if the value exceeds k
+            if right - left - max_char_n > k:
+                counts[s[left]] -= 1
+                left += 1
+        return right - left
