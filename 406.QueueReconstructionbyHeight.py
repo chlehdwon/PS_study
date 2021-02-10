@@ -12,22 +12,15 @@ queue[j] = [hj, kj] is the attributes of the jth person in the queue
 
 
 import heapq
+from typing import List
 
 
 class Solution:
     def reconstructQueue(self, people: List[List[int]]) -> List[List[int]]:
         q, recon = [], []
         for h, k in people:
-            heapq.heappush(q, (k, h))
-        for _ in range(len(q)):
-            k, h = heapq.heappop(q)
-            cnt, i = 0, 0
-            if h == 0:
-                recon.append((h, k))
-            for i, h_i, k_i in enumerate(recon):
-                if h <= h_i:
-                    cnt += 1
-                if cnt == k:
-                    break
-            recon.insert(i+1, (h, k))
+            heapq.heappush(q, (-h, k))
+        while q:
+            person = heapq.heappop(q)
+            recon.insert(person[1], [-person[0], person[1]])
         return recon
