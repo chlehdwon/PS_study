@@ -1,18 +1,39 @@
-# There are N gas stations along a circular route, where the amount of gas
-# at station i is gas[i].
+"""
+There are n gas stations along a circular route, where the amount of
+gas at the ith station is gas[i].
 
-# You have a car with an unlimited gas tank and it costs cost[i] of gas to
-# travel from station i to its next station (i+1).
-# You begin the journey with an empty tank at one of the gas stations.
+You have a car with an unlimited gas tank and it costs cost[i] of gas
+to travel from the ith station to its next (i + 1)th station. You begin
+the journey with an empty tank at one of the gas stations.
 
-# Return the starting gas station's index if you can travel around the
-# circuit once in the clockwise direction, otherwise return -1.
+Given two integer arrays gas and cost, return the starting gas
+station's index if you can travel around the circuit once in the
+clockwise direction, otherwise return -1. If there exists a solution,
+it is guaranteed to be unique
+"""
 
 
-# Find the index which means when the car has the most less oil.
-# Set that index as the start point.
+from typing import List
+
 
 class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if not gas or sum(gas) < sum(cost):
+            return -1
+        gas[0] = gas[0] - cost[0]
+        # update values to amount of gas when we start from 0
+        for i in range(1, len(gas)):
+            gas[i] = gas[i-1] + gas[i] - cost[i]
+        min_index = 0
+        # find index which the value is minimum
+        for i in range(1, len(gas)):
+            if gas[min_index] > gas[i]:
+                min_index = i
+        # return the next index of min_index
+        return min_index + 1 if min_index < len(gas) - 1 else 0
+
+
+class Solution2:
     def canCompleteCircuit(self, gas, cost):
         if sum(gas) < sum(cost):
             return -1
@@ -26,12 +47,12 @@ class Solution:
 
 
 # LeetCode's Answer. It is more faster that mine.
-# Difference point is that this solution doesn't create the liest.abs()
+# Difference point is that this solution doesn't create the list
 # Instead of creating list, it initialize the amount of gas
 # when it goes to negative. And memorize that point.
 # The last point is minimum point, which is the answer.
 
-class Solution2:
+class Solution3:
     def canCompleteCircuit(self, gas, cost):
         if (sum(gas) - sum(cost) < 0):
             return -1
@@ -47,7 +68,3 @@ class Solution2:
 
         return start_index
 
-
-a = Solution()
-print(a.canCompleteCircuit(gas  = [1,2,3,4,5]
-, cost = [3,4,5,1,2]))
