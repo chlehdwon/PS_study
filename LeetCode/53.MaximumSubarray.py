@@ -1,16 +1,26 @@
-# # Given an integer array nums, find the contiguous subarray
-# (containing at least one number) which has the largest sum and return its sum
+"""
+Given an integer array nums, find the contiguous subarray (containing
+at least one number) which has the largest sum and return its sum.
+"""
 
-# # Follow up: If you have figured out the O(n) solution, try coding
-# another solution using the divide and conquer approach, which is more
-# subtle.
+
+from typing import List
 
 
 class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [0] * len(nums)
+        dp[0] = nums[0]
+        for i in range(1, len(nums)):
+            dp[i] = max(dp[i-1]+nums[i], nums[i])
+
+        return max(dp)
+
+
+class Solution2:
     def maxSubArray(self, nums):
         n = len(nums)
-        #############################################################
-        Kadane's Algorithm   O(n)
+        # Kadane's Algorithm   O(n)
 
         current_sum = float('-inf')
         max_sum = 0
@@ -19,8 +29,12 @@ class Solution:
             max_sum = max(current_sum, max_sum)
         return max_sum
 
-        ##############################################################
+
+class Solution3:
+    def maxSubArray(self, nums):
         # divide and Conquer O(nlogn)
+        n = len(nums)
+
         if n == 1:
             return nums[0]
 
@@ -44,5 +58,3 @@ class Solution:
         return max(left_sum, right_sum, max_left_sum+max_right_sum)
 
 
-a = Solution()
-print(a.maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])
