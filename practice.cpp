@@ -1,15 +1,7 @@
-/* 이상한 scanf */
-#include <stdio.h>
-#include <string.h>
+#include <iostream>
 
-int main(void)
-{
-    //getchar. ---------------
-    printf("[input] : ");
-    int arr[10];
-    for (int i = 0; i < 10; ++i)
-    {
-        arr[i] = getchar();    //열개의 char를 받습니다. 
-    }
-	return 0;
+int main() {
+	bool b1=0, b2=1;
+  	std::cout<<b2<<" "<<std::boolalpha<<b1<<"\n"<<std::endl;
+	std::cout<<b1<<" "<<b2<<"\n";
 }
