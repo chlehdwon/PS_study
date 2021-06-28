@@ -1,11 +1,11 @@
 #include <iostream>
 #include <cstring>
-
+#define MAX 31
 using namespace std;
 int c,min_press;
 int clocks[16];
-int press[10];
 bool switch_map[10][16]={
+//   0 1 2 3 4 5 6 7 8 9101112131415
 	{1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0},
 	{0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1},
@@ -17,31 +17,33 @@ bool switch_map[10][16]={
 	{0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0},
 	{0,0,0,1,1,1,0,0,0,1,0,0,0,1,0,0}
 };
-void set_clock(int times, int start){
-	for(int i=0; i<10; ++i){
-		cout << press[i] << ' ';
-	}
-	cout << '\n';
-	if(times>=min_press) return;
-	int twelve_now=0;
+
+void click_switch(int idx){
 	for(int i=0; i<16; ++i){
-		if(clocks[i]==0) twelve_now++;
-	}
-	if(twelve_now==16){
-		if(times<min_press) min_press=times;
-		return;
+		if(switch_map[idx][i]==1){
+			clocks[i]=(clocks[i]==3 ? 0 : clocks[i]+1);
+		}
 	}
 	
-	for(int i=start; i<10; ++i){
-		if(press[i]<3){
-			press[i]+=1;
-			for(int j=0; j<16; ++j){
-				if(switch_map[i][j]==1){
-					clocks[j] = (clocks[j]==3 ? 0 : clocks[j]+1);
-				}
-			}
-			set_clock(times+1, i+1);
-		}
+	return;
+}
+
+bool issync(){
+	for(int i=0; i<16; ++i)
+		if(clocks[i]!=0) return false;
+	return true;
+}
+
+void set_clock(int here, int cnt){
+	if(issync()){
+		if(cnt<min_press) min_press=cnt;
+		return;
+	}
+	if(here==10) return;
+
+	for(int i=0; i<4; ++i){
+		set_clock(here+1,cnt+i);
+		click_switch(here);
 	}
 	
 	return;
@@ -53,16 +55,14 @@ int main(){
 	cin >> c;
 	while(c--){
 		memset(clocks,0,sizeof(clocks));
-		memset(press,0,sizeof(press));
 		for(int i=0; i<16; ++i){
 			int num;
 			cin >> num;
 			clocks[i] = (num%12)/3;
 		}
-		min_press=31;
-		int times=0;
-		set_clock(times,0);
-		if(min_press==31) cout << -1 << '\n';
+		min_press=MAX;
+		set_clock(0,0);
+		if(min_press==MAX) cout << -1 << '\n';
 		else cout << min_press << '\n';
 	}
 	return 0;
