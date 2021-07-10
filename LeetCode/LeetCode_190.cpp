@@ -8,6 +8,7 @@ public:
 			n>>=1;
 		}
 		ans+=n&1;
+		
 		return ans;
     }
 };
