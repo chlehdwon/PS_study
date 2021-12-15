@@ -19,7 +19,7 @@
 
 
 class Solution:
-    def reorderLogFiles(self, logs: List[str]) -> List[str]:
+    def reorderLogFiles(self, logs):
         letter_logs, digits_logs = [], []
         if not logs:
             return []
