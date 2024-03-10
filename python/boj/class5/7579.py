@@ -2,6 +2,7 @@ import sys
 
 ### 이 문제의 핵심은, 메모리 초과 때문에 dp의 index를 memory로 쓰면 안되고, cost로 써야 한다는 점.
 ### 해당 cost 이하로 만들 수 있는 최대의 memory를 구한 후, 이를 처음으로 넘는 cost를 출력한다는 마인드로 해야 함.
+### time-complexity: O(N * C) (N: item의 수, C: 총 cost의 크기)
 n, m = map(int, sys.stdin.readline().split())
 memory = list(map(int, sys.stdin.readline().split()))
 cost = list(map(int, sys.stdin.readline().split()))
