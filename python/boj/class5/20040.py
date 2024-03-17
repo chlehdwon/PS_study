@@ -34,19 +34,16 @@ def solve():
 solve()
 
 ### rank를 통해 tree 최적화 가능
-import sys
+# import sys
 
-input = sys.stdin.readline
-
-
-# 1. 경로 압축
-def find(x):
-    if x != parent[x]:
-        parent[x] = find(parent[x])  # 재귀를 돌며 해당 부모를 최상위 노드로 설정
-    return parent[x]
+# input = sys.stdin.readline
 
 
-# 2. union by rank 처리
+# def find(x):
+#     if x != parent[x]:
+#         parent[x] = find(parent[x])  # 재귀를 돌며 해당 부모를 최상위 노드로 설정
+#     return parent[x]
+
 # def union_(a, b):
 #     a = find(a)
 #     b = find(b)
