@@ -6,6 +6,8 @@ import sys
 #   vec의 마지막 값보다 배열의 값이 크다면 vec 뒤에다 추가
 #   아니라면, 이진 탐색을 통해 lower bound 위치에 값을 배열의 값으로 변경
 #   ex) vector가 [10, 20, 25, 50], num=30이면, vector를 [10, 20, 25, 30]으로 변경
+# 참고로 이 경우는 길이 밖에 구할 수 없음.
+#   배열 상에는 뒤에 있지만, lower_bound를 통해 vector 상에서 앞에 있을수도 있기 때문.
 
 n = int(sys.stdin.readline())
 array = list(map(int, sys.stdin.readline().split()))
